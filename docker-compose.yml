@@ -1,0 +1,17 @@
+version: '3.9'
+
+volumes:
+  postgres-data:
+    driver: local 
+
+services:
+  postgres:
+    image: postgres:14.4-alpine
+    environment:
+      POSTGRES_USER: go-tg
+      POSTGRES_PASSWORD: go-tg
+      POSTGRES_DB: go-tg
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+     - "5432:5432"
