@@ -16,14 +16,14 @@ jobs:
       - name: Replace names
         run: |
           # Replace mr-linch/go-tg-bot -> ${{github.repository}}    
-          find . -type f -not -path './.git/*' -exec sed -i "s#mr-linch/go-tg-bot#${{github.repository}}#g" {} +;
+          find . -type f -not -path './.git/*' -not -path './.github/*' -exec sed -i "s#mr-linch/go-tg-bot#${{github.repository}}#g" {} +;
 
           # Replace go-tg-bot -> ${{ github.event.repository.name }}
-          find . -type f -not -path './.git/*' -exec sed -i "s#go-tg-bot#${{ github.event.repository.name }}#g" {} +;
+          find . -type f -not -path './.git/*' -not -path './.github/*' -exec sed -i "s#go-tg-bot#${{ github.event.repository.name }}#g" {} +;
 
           # Replace GO_TG_BOT -> ${{ github.event.repository.name }}
           NEW_NAME=$(echo ${{ github.event.repository.name }} | tr '[:lower:]' '[:upper:]' | tr - _)
-          find . -type f -not -path './.git/*' -exec sed -i "s#GO_TG_BOT#$NEW_NAME#g" {} +;
+          find . -type f -not -path './.git/*' -not -path './.github/*' -exec sed -i "s#GO_TG_BOT#$NEW_NAME#g" {} +;
 
       # - name: Remove files
       #   run: |
