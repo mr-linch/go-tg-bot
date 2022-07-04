@@ -13,20 +13,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
-      # Replace mr-linch/go-tg-bot -> ${{github.repository}}
-      - run: find . -type f -not -path './.git/*' -exec sed -i "s#mr-linch/go-tg-bot#${{github.repository}}#g" {} +;
+      - name: Replace names
+        run: |
+          # Replace mr-linch/go-tg-bot -> ${{github.repository}}    
+          find . -type f -not -path './.git/*' -exec sed -i "s#mr-linch/go-tg-bot#${{github.repository}}#g" {} +;
 
-      # Replace go-tg-bot -> ${{ github.event.repository.name }}
-      - run: find . -type f -not -path './.git/*' -exec sed -i "s#go-tg-bot#${{ github.event.repository.name }}#g" {} +;
+          # Replace go-tg-bot -> ${{ github.event.repository.name }}
+          find . -type f -not -path './.git/*' -exec sed -i "s#go-tg-bot#${{ github.event.repository.name }}#g" {} +;
 
-      # Replace GO_TG_BOT -> ${{ github.event.repository.name }}
-      - run: |
-          NEW_NAME=$(echo $NAME | tr '[:lower:]' '[:upper:]' | tr - _)
+          # Replace GO_TG_BOT -> ${{ github.event.repository.name }}
+          NEW_NAME=$(echo ${{ github.event.repository.name }} | tr '[:lower:]' '[:upper:]' | tr - _)
           find . -type f -not -path './.git/*' -exec sed -i "s#GO_TG_BOT#$NEW_NAME#g" {} +;
-        env:
-          NAME: ${{ github.event.repository.name }}
 
-      - run: rm .github/workflows/bootstrap.yml
+      - name: Remove files
+        run: |
+          rm .github/workflows/boilerplate.yml LICENCE.md
 
       - run: | 
           git status
