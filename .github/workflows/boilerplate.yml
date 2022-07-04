@@ -25,9 +25,9 @@ jobs:
           NEW_NAME=$(echo ${{ github.event.repository.name }} | tr '[:lower:]' '[:upper:]' | tr - _)
           find . -type f -not -path './.git/*' -exec sed -i "s#GO_TG_BOT#$NEW_NAME#g" {} +;
 
-      - name: Remove files
-        run: |
-          rm .github/workflows/boilerplate.yml LICENSE
+      # - name: Remove files
+      #   run: |
+      #     rm LICENSE
 
       - run: | 
           git status
