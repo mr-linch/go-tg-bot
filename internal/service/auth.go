@@ -8,5 +8,13 @@ import (
 )
 
 type Auth interface {
-	Auth(ctx context.Context, user *tg.User) (*domain.User, error)
+	// AuthViaBot authorize user via bot.
+	// If user is not exist, create new user.
+	AuthViaBot(ctx context.Context, user *tg.User) (*domain.User, error)
+
+	// AuthViaWidget authorize user via Telegram Login Widget.
+	// AuthViaWidget(ctx context.Context, data *tg.AuthWidget) (*domain.User, error)
+
+	// AuthViaWeb authorize user via WebAppInitData
+	// AuthViaWebApp(ctx context.Context, data *tg.WebAppInitData) (*domain.User, error)
 }

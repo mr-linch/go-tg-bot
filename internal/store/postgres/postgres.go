@@ -17,7 +17,7 @@ type Postgres struct {
 	*sql.DB
 	migrator *migrations.Migrator
 
-	// changeIPSchedule  *changeIPScheduleStore
+	user *userStore
 }
 
 var _ store.Store = &Postgres{}
@@ -29,7 +29,15 @@ func New(db *sql.DB) *Postgres {
 		migrator: migrations.New(db),
 	}
 
+	base := baseStore{DB: db, Txier: pg.Tx}
+
+	pg.user = &userStore{base}
+
 	return pg
+}
+
+func (pg *Postgres) User() store.User {
+	return pg.user
 }
 
 func (pg *Postgres) Migrator() store.Migrator {

@@ -28,6 +28,8 @@ type Config struct {
 	Log      Log
 	Sentry   Sentry
 	Postgres Postgres
+	Bot      Bot
+	HTTP     HTTP
 }
 
 // Load application configuration from following sources:

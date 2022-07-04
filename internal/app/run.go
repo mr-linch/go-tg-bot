@@ -3,13 +3,18 @@ package app
 import (
 	"context"
 	"database/sql"
+	"strings"
 	"time"
 
 	"github.com/friendsofgo/errors"
 	"github.com/getsentry/sentry-go"
+	"github.com/mr-linch/go-tg"
 	"github.com/mr-linch/go-tg-bot/internal/config"
+	"github.com/mr-linch/go-tg-bot/internal/delivery/bot"
+	"github.com/mr-linch/go-tg-bot/internal/service/container"
 	"github.com/mr-linch/go-tg-bot/internal/store"
 	"github.com/mr-linch/go-tg-bot/internal/store/postgres"
+	"github.com/mr-linch/go-tg/tgb"
 	"github.com/rs/zerolog/log"
 )
 
@@ -26,13 +31,51 @@ func Run(ctx context.Context, cfg *config.Config, buildInfo BuildInfo) error {
 	}
 	defer close()
 
-	_, close, err = newStore(ctx, cfg)
+	store, close, err := newStore(ctx, cfg)
 	if err != nil {
 		return errors.Wrap(err, "init store")
 	}
 	defer close()
 
-	return nil
+	botClient, err := newBotClient(ctx, cfg)
+	if err != nil {
+		return errors.Wrap(err, "init bot client")
+	}
+
+	srv := container.New(container.Deps{
+		Store: store,
+	})
+
+	bot := bot.New(&bot.Deps{
+		Service: srv,
+	})
+
+	if cfg.Bot.Webhook.BaseURL != "" {
+		fullURL := strings.TrimRight(cfg.Bot.Webhook.BaseURL, "/") + cfg.Bot.Webhook.Path
+
+		log.Ctx(ctx).Info().
+			Str("url", fullURL).
+			Str("listen", cfg.HTTP.Listen).
+			Msg("start webhook server...")
+
+		return tgb.NewWebhook(
+			bot,
+			botClient,
+			fullURL,
+		).Run(
+			ctx,
+			cfg.HTTP.Listen,
+		)
+	} else {
+		log.Ctx(ctx).Info().Msg("start polling...")
+
+		return tgb.NewPoller(
+			bot,
+			botClient,
+		).Run(
+			ctx,
+		)
+	}
 }
 
 func initSentry(ctx context.Context, cfg *config.Config, build BuildInfo) (context.CancelFunc, error) {
@@ -100,5 +143,17 @@ func newStore(ctx context.Context, cfg *config.Config) (store.Store, context.Can
 		log.Ctx(ctx).Debug().Msg("close db...")
 		db.Close()
 	}, nil
+}
 
+func newBotClient(ctx context.Context, config *config.Config) (*tg.Client, error) {
+	client := tg.New(config.Bot.Token)
+
+	me, err := client.Me(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get me")
+	}
+
+	log.Printf("authorized as bot https://t.me/%s", me.Username)
+
+	return client, nil
 }

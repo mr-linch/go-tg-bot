@@ -24,7 +24,7 @@ type Migrator interface {
 
 // StoreFactory define interface of factory methods
 type StoreFactory interface {
-	// Define getters for store here
+	User() User
 }
 
 // StoreTx define interface of transactional of store.

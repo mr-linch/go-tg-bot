@@ -1,0 +1,33 @@
+pkgname = "dal"
+output = "internal/store/postgres/dal"
+no-tests = true
+no-hooks = true
+no-auto-timestamps = true
+no-back-referencing = true
+
+wipe = true
+
+[psql]
+  dbname = "go-tg-bot"
+  host   = "localhost"
+  port   = 5432
+  user   = "go-tg-bot"
+  pass   = "go-tg-bot"
+  sslmode = "disable"
+  blacklist = [
+    "schema_migrations"
+  ]
+
+[[types]]
+  [types.match]
+    type = "types.JSON"
+    #nullable = true
+  [types.replace]
+    type = "string"
+
+[[types]]
+  [types.match]
+    type = "null.JSON"
+    nullable = true
+  [types.replace]
+    type = "null.String"
