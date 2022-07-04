@@ -1,6 +1,6 @@
 //go:build tools
 
-package main
+package tools
 
 import (
 	_ "github.com/volatiletech/sqlboiler/v4"
