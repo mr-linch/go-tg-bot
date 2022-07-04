@@ -1,3 +1,6 @@
+// Package define types for application configuration.
+// Also has method for configuration parsing and loading.
+// Uses github.com/cristalhq/aconfig package for configuration parsing.
 package config
 
 import (
