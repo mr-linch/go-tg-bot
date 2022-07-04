@@ -1,0 +1,35 @@
+name: Repo Bootstrap
+
+on:
+  push:
+    branches: [main]
+  
+jobs:
+  substitute:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.head_commit.message == 'Initial commit' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      # Replace mr-linch/go-tg-bot -> ${{github.repository}}
+      - run: find . -type f -not -path './.git/*' -exec sed -i '' "s#mr-linch/go-tg-bot#${{github.repository}}#g" {} +;
+
+      # Replace go-tg-bot -> ${{ github.event.repository.name }}
+      - run: find . -type f -not -path './.git/*' -exec sed -i '' "s#go-tg-bot#${{ github.event.repository.name }}#g" {} +;
+
+      # Replace GO_TG_BOT -> ${{ github.event.repository.name }}
+      - run: |
+          NEW_NAME=$(echo $NAME | tr '[:lower:]' '[:upper:]' | tr - _)
+          find . -type f -not -path './.git/*' -exec sed -i '' "s#GO_TG_BOT#$NEW_NAME#g" {} +;
+        env:
+          NAME: ${{ github.event.repository.name }}
+
+      - run: rm .github/workflows/bootstrap.yml
+
+      - run: | 
+          git config --global user.name github-actions[bot]
+          git config --global user.email github-actions[bot]@users.noreply.github.com
+          git add .
+          git commit -m 'Repo Bootstrap 🚀'
+          git push

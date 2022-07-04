@@ -10,6 +10,7 @@ on:
 jobs:
   lint:
     name: Lint
+    if: ${{ github.event.head_commit.message != 'Initial commit' }}
     runs-on: ubuntu-latest
     steps:
       - name: Install Go
@@ -27,6 +28,7 @@ jobs:
 
   test:
     name: Test
+    if: ${{ github.event.head_commit.message != 'Initial commit' }}
     runs-on: ubuntu-latest
     services:
       postgres:
