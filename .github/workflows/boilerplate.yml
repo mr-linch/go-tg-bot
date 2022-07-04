@@ -27,7 +27,7 @@ jobs:
 
       - name: Remove files
         run: |
-          rm .github/workflows/boilerplate.yml LICENCE.md
+          rm .github/workflows/boilerplate.yml LICENSE
 
       - run: | 
           git status
