@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/benbjohnson/clock"
 	"github.com/friendsofgo/errors"
 	"github.com/getsentry/sentry-go"
 	"github.com/mr-linch/go-tg"
@@ -44,6 +45,7 @@ func Run(ctx context.Context, cfg *config.Config, buildInfo BuildInfo) error {
 
 	srv := container.New(container.Deps{
 		Store: store,
+		Clock: clock.New(),
 	})
 
 	bot := bot.New(&bot.Deps{
