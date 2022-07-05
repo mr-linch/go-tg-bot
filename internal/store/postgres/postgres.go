@@ -13,6 +13,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+//go:generate sqlboiler psql
+
 type Postgres struct {
 	*sql.DB
 	migrator *migrations.Migrator

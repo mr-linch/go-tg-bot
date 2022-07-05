@@ -52,6 +52,7 @@ fmt: ## go fmt
 
 .PHONY: generate
 generate: ## go generate
+generate: tools
 	$(call print-target)
 	go generate ./...
 

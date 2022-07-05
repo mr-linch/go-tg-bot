@@ -7,6 +7,8 @@ import (
 	"github.com/mr-linch/go-tg-bot/internal/domain"
 )
 
+//go:generate mockery --name Auth
+
 type Auth interface {
 	// AuthViaBot authorize user via bot.
 	// If user is not exist, create new user.
