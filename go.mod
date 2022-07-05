@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/DATA-DOG/go-txdb v0.1.5
+	github.com/benbjohnson/clock v1.3.0
 	github.com/cristalhq/aconfig v0.17.0
 	github.com/cristalhq/aconfig/aconfigyaml v0.17.1
 	github.com/friendsofgo/errors v0.9.2
@@ -19,7 +20,6 @@ require (
 )
 
 require (
-	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gofrs/uuid v3.2.0+incompatible // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
