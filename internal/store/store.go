@@ -39,6 +39,8 @@ type TxFunc func(ctx context.Context) error
 // Txier define function to start tx block
 type Txier func(ctx context.Context, txFunc TxFunc) error
 
+//go:generate mockery --name Store  --case underscore
+
 // Store define generic interface for database with transaction support
 type Store interface {
 	StoreFactory

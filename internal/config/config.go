@@ -37,19 +37,14 @@ type Config struct {
 
 // Load application configuration from following sources:
 // - environment variables with prefix "GO_TG_BOT_*"
-// - file ./go-tg-bot.yml
-// - file ./go-tg-bot.local.yml
-// - file /etc/go-tg-bot.yml
-func Load() *Config {
+// - command line flags
+// - yaml files
+func Load(files []string) *Config {
 	cfg := Config{}
 
 	loader := aconfig.LoaderFor(&cfg, aconfig.Config{
 		EnvPrefix: "GO_TG_BOT",
-		Files: []string{
-			"./go-tg-bot.local.yml",
-			"./go-tg-bot.yml",
-			"/etc/go-tg-bot.yml",
-		},
+		Files:     files,
 		FileDecoders: map[string]aconfig.FileDecoder{
 			".yml": aconfigyaml.New(),
 		},

@@ -2,8 +2,8 @@ package auth
 
 import (
 	"context"
-	"time"
 
+	"github.com/benbjohnson/clock"
 	"github.com/friendsofgo/errors"
 	"github.com/mr-linch/go-tg"
 	"github.com/mr-linch/go-tg-bot/internal/domain"
@@ -12,6 +12,7 @@ import (
 )
 
 type Service struct {
+	Clock clock.Clock
 	Store store.Store
 }
 
@@ -24,7 +25,7 @@ func (srv *Service) AuthViaBot(ctx context.Context, tgUser *tg.User) (*domain.Us
 			LastName:         null.NewString(tgUser.LastName, tgUser.LastName != ""),
 			LanguageCode:     null.NewString(tgUser.LanguageCode, tgUser.LanguageCode != ""),
 			TelegramUsername: null.NewString(string(tgUser.Username), tgUser.Username != ""),
-			CreatedAt:        time.Now(),
+			CreatedAt:        srv.Clock.Now(),
 		}
 
 		if err := srv.Store.User().Add(ctx, user); err != nil {
@@ -68,7 +69,7 @@ func (srv *Service) updateUserIfNeed(ctx context.Context, user *domain.User, tgU
 
 	if len(fields) > 0 {
 		fields = append(fields, store.UserFields.UpdatedAt)
-		user.UpdatedAt = null.TimeFrom(time.Now())
+		user.UpdatedAt = null.TimeFrom(srv.Clock.Now())
 		if err := srv.Store.User().Update(ctx, user, fields...); err != nil {
 			return err
 		}

@@ -19,7 +19,11 @@ var (
 
 func main() {
 	// parse cfg
-	cfg := config.Load()
+	cfg := config.Load([]string{
+		"./go-tg-bot.local.yml",
+		"./go-tg-bot.yml",
+		"/etc/go-tg-bot.yml",
+	})
 
 	// init context
 	ctx, cancel := context.WithCancel(context.Background())
