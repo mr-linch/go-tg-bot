@@ -1,7 +1,7 @@
 #syntax=docker/dockerfile:1.2
 
 # build static binary
-FROM golang:1.18.3-alpine3.16 as builder 
+FROM golang:1.18.4-alpine3.16 as builder 
 
 WORKDIR /go/src/go-tg-bot
 
