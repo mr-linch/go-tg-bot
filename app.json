@@ -1,0 +1,24 @@
+{
+  "name": "go-tg-bot",
+  "description": "My cool new bot",
+  "repository": "https://github.com/mr-linch/go-tg",
+  "logo": "https://user-images.githubusercontent.com/3163427/180611742-101936b9-bf15-41d1-9ed9-30d1d8826354.png",
+  "keywords": [
+    "golang",
+    "telegram",
+    "chat-bot",
+    "telegram-bot"
+  ],
+  "success_url": "/",
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-go"
+    }
+  ],
+  "env": {
+    "GO_TG_BOT_TOKEN": {
+      "description": "Telegram Bot API token from @BotFather",
+      "required": true
+    }
+  }
+}
