@@ -57,5 +57,7 @@ func Load(files []string) *Config {
 		os.Exit(2)
 	}
 
+	setRuntime(&cfg)
+
 	return &cfg
 }
