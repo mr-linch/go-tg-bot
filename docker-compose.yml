@@ -2,7 +2,7 @@ version: '3.9'
 
 volumes:
   postgres-data:
-    driver: local 
+    driver: local
 
 services:
   postgres:

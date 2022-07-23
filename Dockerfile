@@ -1,13 +1,13 @@
 #syntax=docker/dockerfile:1.2
 
 # build static binary
-FROM golang:1.18.4-alpine3.16 as builder 
+FROM golang:1.18.4-alpine3.16 as builder
 
 WORKDIR /go/src/go-tg-bot
 
-# download dependencies 
+# download dependencies
 COPY go.mod go.sum ./
-RUN go mod download 
+RUN go mod download
 
 COPY . .
 
@@ -15,7 +15,7 @@ ARG BUILD_VERSION
 ARG BUILD_REF
 ARG BUILD_TIME
 
-# compile 
+# compile
 RUN CGO_ENABLED=0 go build \
     -ldflags="-w -s -extldflags \"-static\" -X \"main.buildVersion=${BUILD_VERSION}\" -X \"main.buildCommit=${BUILD_REF}\" -X \"main.buildTime=${BUILD_TIME}\"" \
     -a \
@@ -23,7 +23,7 @@ RUN CGO_ENABLED=0 go build \
     -o /bin/go-tg-bot .
 
 
-# run 
+# run
 FROM alpine:3.16
 
 
