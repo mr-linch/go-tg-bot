@@ -39,7 +39,8 @@
       "required": false
     },
     "GO_TG_BOT_POSTGRES_DSN": {
-      "description": "Postgres connection string, leave empty for runtime detection"
+      "description": "Postgres connection string, leave empty for runtime detection",
+      "required": false
     },
     "GO_TG_BOT_SENTRY_DSN": {
       "description": "Sentry DSN",
