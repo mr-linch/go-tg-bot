@@ -14,15 +14,15 @@ type Deps struct {
 }
 
 type Bot struct {
-	*tgb.Bot
+	*tgb.Router
 
 	*Deps
 }
 
 func New(deps *Deps) *Bot {
 	bot := &Bot{
-		Deps: deps,
-		Bot:  tgb.New(),
+		Deps:   deps,
+		Router: tgb.NewRouter(),
 	}
 
 	bot.register()

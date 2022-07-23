@@ -62,7 +62,7 @@ func newTgClient(t *testing.T, calls []tgClientCall) *tg.Client {
 
 	tgClient := tg.New("1234:secret",
 		tg.WithClientDoer(server.Client()),
-		tg.WithClient(server.URL),
+		tg.WithClientServerURL(server.URL),
 	)
 
 	return tgClient
