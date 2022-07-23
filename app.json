@@ -1,7 +1,7 @@
 {
   "stack": "heroku-22",
   "name": "go-tg-bot",
-  "description": "My cool new bot",
+  "description": "My awesome Telegram bot powered",
   "repository": "https://github.com/mr-linch/go-tg",
   "logo": "https://user-images.githubusercontent.com/3163427/180611742-101936b9-bf15-41d1-9ed9-30d1d8826354.png",
   "keywords": [
@@ -25,9 +25,31 @@
     }
   ],
   "env": {
+    "GO_TG_BOT_ENV": {
+      "description": "Environment",
+      "required": true,
+      "value": "production"
+    },
     "GO_TG_BOT_TOKEN": {
       "description": "Telegram Bot API token from @BotFather",
       "required": true
+    },
+    "GO_TG_BOT_WEBHOOK_BASE_URL": {
+      "description": "Base URL for webhooks. Leave empty for runtime detection",
+      "required": false
+    },
+    "GO_TG_BOT_POSTGRES_DSN": {
+      "description": "Postgres connection string, leave empty for runtime detection",
+      "required": true
+    },
+    "GO_TG_BOT_SENTRY_DSN": {
+      "description": "Sentry DSN",
+      "required": false
+    },
+    "GO_TG_BOT_LOG_PRETTY": {
+      "description": "Enable pretty logging",
+      "required": false,
+      "value": "true"
     }
   }
 }
