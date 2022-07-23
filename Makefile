@@ -4,14 +4,14 @@
 dev: ## dev build
 dev: tools generate vet fmt lint mod-tidy
 
-.PHONY: run 
+.PHONY: run
 run: ## run build
 run: run-services
 	$(call print-target)
 	go run -race .
 
 .PHONY: run-services
-run-services: ## run docker compose services 
+run-services: ## run docker compose services
 	$(call print-target)
 	docker compose up --detach
 
@@ -58,5 +58,5 @@ generate: tools
 
 
 define print-target
-    @printf "Executing target: \033[36m$@\033[0m\n"
+	@printf "Executing target: \033[36m$@\033[0m\n"
 endef
