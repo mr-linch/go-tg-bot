@@ -6,3 +6,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/mr-linch/go-tg-bot)](https://goreportcard.com/report/github.com/mr-linch/go-tg-bot)
 
 ⚡️ Golang Telegram Bot template with clean architecture.
+
+## Deploy
+
+[![Deploy Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mr-linch/go-tg-bot/tree/heroku-deploy-button)
