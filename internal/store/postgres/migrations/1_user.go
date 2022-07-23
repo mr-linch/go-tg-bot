@@ -4,7 +4,7 @@ func init() {
 	include(1, query(`
 		create table "user" (
 			"id" serial primary key,
-			
+
 			"telegram_id" bigint not null,
 			"telegram_username" text unique,
 

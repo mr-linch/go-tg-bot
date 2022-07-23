@@ -6,23 +6,23 @@
 version: 2
 updates:
   # Maintain dependencies for Go
-  - package-ecosystem: "gomod" 
-    directory: "/" 
+  - package-ecosystem: "gomod"
+    directory: "/"
     schedule:
       interval: "weekly"
 
   # Maintain dependencies for tools
-  - package-ecosystem: "gomod" 
-    directory: "/_tools" 
+  - package-ecosystem: "gomod"
+    directory: "/_tools"
     schedule:
       interval: "weekly"
 
-  - package-ecosystem: "github-actions" 
-    directory: "/" 
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
       interval: "weekly"
 
-  - package-ecosystem: "docker" 
-    directory: "/" 
+  - package-ecosystem: "docker"
+    directory: "/"
     schedule:
       interval: "daily"
