@@ -3,4 +3,6 @@
 
 package config
 
-func setDefaults(cfg *Config) {}
+func aliasEnv() {
+
+}

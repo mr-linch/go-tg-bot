@@ -30,7 +30,7 @@
       "required": true,
       "value": "production"
     },
-    "GO_TG_BOT_TOKEN": {
+    "GO_TG_BOT_BOT_TOKEN": {
       "description": "Telegram Bot API token from @BotFather",
       "required": true
     },

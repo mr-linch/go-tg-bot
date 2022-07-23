@@ -50,14 +50,14 @@ func Load(files []string) *Config {
 		},
 	})
 
+	aliasEnv()
+
 	if err := loader.Load(); errors.Is(err, flag.ErrHelp) {
 		os.Exit(1)
 	} else if err != nil {
 		fmt.Printf("%+v", err)
 		os.Exit(2)
 	}
-
-	setRuntime(&cfg)
 
 	return &cfg
 }
