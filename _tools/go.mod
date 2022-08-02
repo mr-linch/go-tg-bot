@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/vektra/mockery/v2 v2.14.0
-	github.com/volatiletech/sqlboiler/v4 v4.11.0
+	github.com/volatiletech/sqlboiler/v4 v4.12.0
 )
 
 require (
