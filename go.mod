@@ -11,12 +11,16 @@ require (
 	github.com/getsentry/sentry-go v0.13.0
 	github.com/lib/pq v1.10.6
 	github.com/mr-linch/go-tg v0.1.1
+	github.com/nicksnyder/go-i18n/v2 v2.2.0
+	github.com/pkg/errors v0.9.1
 	github.com/remind101/migrate v0.0.0-20170729031349-52c1edff7319
 	github.com/rs/zerolog v1.27.0
 	github.com/stretchr/testify v1.8.0
 	github.com/volatiletech/null/v8 v8.1.2
 	github.com/volatiletech/sqlboiler/v4 v4.12.0
 	github.com/volatiletech/strmangle v0.0.4
+	golang.org/x/text v0.3.7
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (

@@ -46,27 +46,29 @@ func (s *userStore) Query() store.UserQuery {
 
 func (s *userStore) toRow(user *domain.User) *dal.User {
 	return &dal.User{
-		ID:               int(user.ID),
-		TelegramID:       int64(user.TelegramID),
-		FirstName:        user.FirstName,
-		LastName:         user.LastName,
-		TelegramUsername: user.TelegramUsername,
-		LanguageCode:     user.LanguageCode,
-		CreatedAt:        user.CreatedAt,
-		UpdatedAt:        user.UpdatedAt,
+		ID:                    int(user.ID),
+		TelegramID:            int64(user.TelegramID),
+		FirstName:             user.FirstName,
+		LastName:              user.LastName,
+		TelegramUsername:      user.TelegramUsername,
+		LanguageCode:          user.LanguageCode,
+		PreferredLanguageCode: user.PreferredLanguageCode,
+		CreatedAt:             user.CreatedAt,
+		UpdatedAt:             user.UpdatedAt,
 	}
 }
 
 func (s *userStore) fromRow(row *dal.User) *domain.User {
 	return &domain.User{
-		ID:               domain.UserID(row.ID),
-		TelegramID:       tg.UserID(row.TelegramID),
-		FirstName:        row.FirstName,
-		LastName:         row.LastName,
-		TelegramUsername: row.TelegramUsername,
-		LanguageCode:     row.LanguageCode,
-		CreatedAt:        row.CreatedAt,
-		UpdatedAt:        row.UpdatedAt,
+		ID:                    domain.UserID(row.ID),
+		TelegramID:            tg.UserID(row.TelegramID),
+		FirstName:             row.FirstName,
+		LastName:              row.LastName,
+		TelegramUsername:      row.TelegramUsername,
+		LanguageCode:          row.LanguageCode,
+		PreferredLanguageCode: row.PreferredLanguageCode,
+		CreatedAt:             row.CreatedAt,
+		UpdatedAt:             row.UpdatedAt,
 	}
 }
 

@@ -27,9 +27,11 @@ func TestService_AuthViaBot(t *testing.T) {
 		userStore := mocks.NewUser(t)
 		userStore.On("Query").Return(userStoreQuery)
 		userStore.On("Add", mock.Anything, &domain.User{
-			TelegramID: tg.UserID(1234),
-			FirstName:  "John",
-			CreatedAt:  clock.Now(),
+			TelegramID:            tg.UserID(1234),
+			FirstName:             "John",
+			CreatedAt:             clock.Now(),
+			PreferredLanguageCode: null.StringFrom("uk"),
+			LanguageCode:          null.StringFrom("uk"),
 		}).Return(nil).Run(func(args mock.Arguments) {
 			user := args.Get(1).(*domain.User)
 			user.ID = 1
@@ -41,8 +43,9 @@ func TestService_AuthViaBot(t *testing.T) {
 		service := Service{Store: store, Clock: clock}
 
 		user, err := service.AuthViaBot(context.Background(), &tg.User{
-			ID:        1234,
-			FirstName: "John",
+			ID:           1234,
+			FirstName:    "John",
+			LanguageCode: "uk",
 		})
 
 		assert.NoError(t, err)

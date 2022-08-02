@@ -19,4 +19,7 @@ type Auth interface {
 
 	// AuthViaWeb authorize user via WebAppInitData
 	// AuthViaWebApp(ctx context.Context, data *tg.WebAppInitData) (*domain.User, error)
+
+	// Change language of user.
+	SetUserLanguage(ctx context.Context, user *domain.User, lang string) (changed bool, err error)
 }

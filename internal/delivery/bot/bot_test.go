@@ -16,9 +16,11 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	bot := New(&Deps{
+	bot, err := New(&Deps{
 		Service: mocks.NewService(t),
 	})
+
+	assert.NoError(t, err)
 
 	assert.NotNil(t, bot)
 }
@@ -85,11 +87,13 @@ func TestBot_onStart(t *testing.T) {
 	service := mocks.NewService(t)
 	service.On("Auth").Return(authService)
 
-	bot := New(&Deps{
+	bot, err := New(&Deps{
 		Service: service,
 	})
 
-	err := bot.Handle(ctx, &tgb.Update{
+	assert.NoError(t, err)
+
+	err = bot.Handle(ctx, &tgb.Update{
 		Client: newTgClient(t, []tgClientCall{
 			{
 				"getMe",
