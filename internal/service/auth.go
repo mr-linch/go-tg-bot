@@ -9,10 +9,14 @@ import (
 
 //go:generate mockery --name Auth
 
+type AuthSignUpOpts struct {
+	Deeplink string
+}
+
 type Auth interface {
 	// AuthViaBot authorize user via bot.
 	// If user is not exist, create new user.
-	AuthViaBot(ctx context.Context, user *tg.User) (*domain.User, error)
+	AuthViaBot(ctx context.Context, user *tg.User, opts *AuthSignUpOpts) (*domain.User, error)
 
 	// AuthViaWidget authorize user via Telegram Login Widget.
 	// AuthViaWidget(ctx context.Context, data *tg.AuthWidget) (*domain.User, error)

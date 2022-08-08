@@ -1,9 +1,10 @@
 start_message:
-  hash: sha1-30c8b9b9c397093be142a7d59319766f9046ab46
+  hash: sha1-13324d232fc80a3e4fb0075d265ec9a5416f1c55
   other: |
     Привіт, {{.User.Name}}!
 
     <u>Трохи інформації про тебе:</u>
     ├ <strong>ID:</strong> <code>{{.User.ID}}</code>
     ├ <strong>Telegram ID:</strong>  <code>{{.User.TelegramID}}</code>
+    ├ <strong>Діплінка:</strong>  <code>{{.User.Deeplink.String}}</code>
     └ <strong>Мова:</strong>  <code>{{.User.LanguageCode.String}}</code>

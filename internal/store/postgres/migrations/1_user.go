@@ -13,6 +13,8 @@ func init() {
 			"language_code" text,
 			"preferred_language_code" text,
 
+			"deeplink" text,
+
 			"created_at" timestamp not null,
 			"updated_at" timestamp
 		);

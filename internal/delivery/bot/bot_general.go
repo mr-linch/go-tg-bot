@@ -2,17 +2,26 @@ package bot
 
 import (
 	"context"
+	"strings"
 
 	"github.com/friendsofgo/errors"
 	"github.com/mr-linch/go-tg"
 	"github.com/mr-linch/go-tg-bot/internal/domain"
+	"github.com/mr-linch/go-tg-bot/internal/service"
 	"github.com/mr-linch/go-tg-bot/pkg/tgx"
 	"github.com/mr-linch/go-tg/tgb"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 )
 
 func (bot *Bot) onStartCmd(ctx context.Context, msg *tgb.MessageUpdate) error {
-	user, err := bot.Service.Auth().AuthViaBot(ctx, msg.Message.From)
+	opts := &service.AuthSignUpOpts{}
+
+	_, before, found := strings.Cut(msg.Text, " ")
+	if found {
+		opts.Deeplink = before
+	}
+
+	user, err := bot.Service.Auth().AuthViaBot(ctx, msg.Message.From, opts)
 	if err != nil {
 		return errors.Wrap(err, "auth via bot")
 	}
@@ -29,6 +38,7 @@ func (bot *Bot) buildStartMsg(user *domain.User) *tgx.TextMessage {
 				"<u>Here some info about you:</u>\n" +
 				"├ <strong>ID:</strong> <code>{{.User.ID}}</code>\n" +
 				"├ <strong>Telegram ID:</strong>  <code>{{.User.TelegramID}}</code>\n" +
+				"├ <strong>Deeplink:</strong> <code>{{.User.Deeplink.String}}</code>\n" +
 				"└ <strong>Language:</strong>  <code>{{.User.LanguageCode.String}}</code>\n",
 		},
 		TemplateData: map[string]any{

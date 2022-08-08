@@ -31,6 +31,7 @@ type User struct {
 	LastName              null.String `boil:"last_name" json:"last_name,omitempty" toml:"last_name" yaml:"last_name,omitempty"`
 	LanguageCode          null.String `boil:"language_code" json:"language_code,omitempty" toml:"language_code" yaml:"language_code,omitempty"`
 	PreferredLanguageCode null.String `boil:"preferred_language_code" json:"preferred_language_code,omitempty" toml:"preferred_language_code" yaml:"preferred_language_code,omitempty"`
+	Deeplink              null.String `boil:"deeplink" json:"deeplink,omitempty" toml:"deeplink" yaml:"deeplink,omitempty"`
 	CreatedAt             time.Time   `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
 	UpdatedAt             null.Time   `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
 
@@ -46,6 +47,7 @@ var UserColumns = struct {
 	LastName              string
 	LanguageCode          string
 	PreferredLanguageCode string
+	Deeplink              string
 	CreatedAt             string
 	UpdatedAt             string
 }{
@@ -56,6 +58,7 @@ var UserColumns = struct {
 	LastName:              "last_name",
 	LanguageCode:          "language_code",
 	PreferredLanguageCode: "preferred_language_code",
+	Deeplink:              "deeplink",
 	CreatedAt:             "created_at",
 	UpdatedAt:             "updated_at",
 }
@@ -68,6 +71,7 @@ var UserTableColumns = struct {
 	LastName              string
 	LanguageCode          string
 	PreferredLanguageCode string
+	Deeplink              string
 	CreatedAt             string
 	UpdatedAt             string
 }{
@@ -78,6 +82,7 @@ var UserTableColumns = struct {
 	LastName:              "user.last_name",
 	LanguageCode:          "user.language_code",
 	PreferredLanguageCode: "user.preferred_language_code",
+	Deeplink:              "user.deeplink",
 	CreatedAt:             "user.created_at",
 	UpdatedAt:             "user.updated_at",
 }
@@ -230,6 +235,7 @@ var UserWhere = struct {
 	LastName              whereHelpernull_String
 	LanguageCode          whereHelpernull_String
 	PreferredLanguageCode whereHelpernull_String
+	Deeplink              whereHelpernull_String
 	CreatedAt             whereHelpertime_Time
 	UpdatedAt             whereHelpernull_Time
 }{
@@ -240,6 +246,7 @@ var UserWhere = struct {
 	LastName:              whereHelpernull_String{field: "\"user\".\"last_name\""},
 	LanguageCode:          whereHelpernull_String{field: "\"user\".\"language_code\""},
 	PreferredLanguageCode: whereHelpernull_String{field: "\"user\".\"preferred_language_code\""},
+	Deeplink:              whereHelpernull_String{field: "\"user\".\"deeplink\""},
 	CreatedAt:             whereHelpertime_Time{field: "\"user\".\"created_at\""},
 	UpdatedAt:             whereHelpernull_Time{field: "\"user\".\"updated_at\""},
 }
@@ -261,9 +268,9 @@ func (*userR) NewStruct() *userR {
 type userL struct{}
 
 var (
-	userAllColumns            = []string{"id", "telegram_id", "telegram_username", "first_name", "last_name", "language_code", "preferred_language_code", "created_at", "updated_at"}
+	userAllColumns            = []string{"id", "telegram_id", "telegram_username", "first_name", "last_name", "language_code", "preferred_language_code", "deeplink", "created_at", "updated_at"}
 	userColumnsWithoutDefault = []string{"telegram_id", "first_name", "created_at"}
-	userColumnsWithDefault    = []string{"id", "telegram_username", "last_name", "language_code", "preferred_language_code", "updated_at"}
+	userColumnsWithDefault    = []string{"id", "telegram_username", "last_name", "language_code", "preferred_language_code", "deeplink", "updated_at"}
 	userPrimaryKeyColumns     = []string{"id"}
 	userGeneratedColumns      = []string{}
 )

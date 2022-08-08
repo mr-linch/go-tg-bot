@@ -34,6 +34,10 @@ type User struct {
 	// Otherwise, the default language code will be used.
 	PreferredLanguageCode null.String
 
+	// Deeplink of the user.
+	// Contains start parameters of the bot.
+	Deeplink null.String
+
 	// Time when user was created.
 	CreatedAt time.Time
 

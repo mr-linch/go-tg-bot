@@ -48,7 +48,7 @@ func (bot *Bot) registerLangHandlers() {
 var cbqLangSet = regexp.MustCompile(`lang_set:(?P<lang>[a-zA-Z-_]{2,})`)
 
 func (bot *Bot) onLangSetCallback(ctx context.Context, cbq *tgb.CallbackQueryUpdate) error {
-	user, err := bot.Service.Auth().AuthViaBot(ctx, &cbq.From)
+	user, err := bot.Service.Auth().AuthViaBot(ctx, &cbq.From, nil)
 	if err != nil {
 		return errors.Wrap(err, "auth via bot")
 	}
@@ -100,7 +100,7 @@ func (bot *Bot) onLangSetCallback(ctx context.Context, cbq *tgb.CallbackQueryUpd
 }
 
 func (bot *Bot) onLangCmd(ctx context.Context, mu *tgb.MessageUpdate) error {
-	user, err := bot.Service.Auth().AuthViaBot(ctx, mu.Message.From)
+	user, err := bot.Service.Auth().AuthViaBot(ctx, mu.Message.From, nil)
 	if err != nil {
 		return errors.Wrap(err, "auth via bot")
 	}

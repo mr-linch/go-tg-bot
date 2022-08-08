@@ -1,6 +1,6 @@
 lang_message:
   hash: sha1-d4e2b3c3fb28aa9e9d4d6342c9ba05213761894a
-  other: "Оберіть вашу мову з списку нижче:"
+  other: 'Оберіть вашу мову з списку нижче:'
 lang_set_cbq_changed:
   hash: sha1-fcad7ce0ba79cdb5972084e4a743b225cd6896e4
   other: "\U0001F44C Мову змінено"
@@ -8,11 +8,12 @@ lang_set_cbq_is_current:
   hash: sha1-97cd00ee4b7af753aeb3a811e2188433bd37ae8b
   other: "\U0001F937‍♂️ Ця мова вже використовується, оберіть іншу"
 start_message:
-  hash: sha1-30c8b9b9c397093be142a7d59319766f9046ab46
+  hash: sha1-13324d232fc80a3e4fb0075d265ec9a5416f1c55
   other: |
     Привіт, {{.User.Name}}!
 
     <u>Трохи інформації про тебе:</u>
     ├ <strong>ID:</strong> <code>{{.User.ID}}</code>
     ├ <strong>Telegram ID:</strong>  <code>{{.User.TelegramID}}</code>
+    ├ <strong>Діплінка:</strong>  <code>{{.User.Deeplink.String}}</code>
     └ <strong>Мова:</strong>  <code>{{.User.LanguageCode.String}}</code>

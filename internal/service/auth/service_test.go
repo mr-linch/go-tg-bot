@@ -8,6 +8,7 @@ import (
 	"github.com/benbjohnson/clock"
 	"github.com/mr-linch/go-tg"
 	"github.com/mr-linch/go-tg-bot/internal/domain"
+	"github.com/mr-linch/go-tg-bot/internal/service"
 	"github.com/mr-linch/go-tg-bot/internal/store"
 	"github.com/mr-linch/go-tg-bot/internal/store/mocks"
 	"github.com/stretchr/testify/assert"
@@ -32,6 +33,7 @@ func TestService_AuthViaBot(t *testing.T) {
 			CreatedAt:             clock.Now(),
 			PreferredLanguageCode: null.StringFrom("uk"),
 			LanguageCode:          null.StringFrom("uk"),
+			Deeplink:              null.StringFrom("reddit"),
 		}).Return(nil).Run(func(args mock.Arguments) {
 			user := args.Get(1).(*domain.User)
 			user.ID = 1
@@ -40,12 +42,14 @@ func TestService_AuthViaBot(t *testing.T) {
 		store := mocks.NewStore(t)
 		store.On("User").Return(userStore)
 
-		service := Service{Store: store, Clock: clock}
+		srv := Service{Store: store, Clock: clock}
 
-		user, err := service.AuthViaBot(context.Background(), &tg.User{
+		user, err := srv.AuthViaBot(context.Background(), &tg.User{
 			ID:           1234,
 			FirstName:    "John",
 			LanguageCode: "uk",
+		}, &service.AuthSignUpOpts{
+			Deeplink: "reddit",
 		})
 
 		assert.NoError(t, err)
@@ -87,7 +91,7 @@ func TestService_AuthViaBot(t *testing.T) {
 			LastName:     "Smith",
 			Username:     "@smith",
 			LanguageCode: "en",
-		})
+		}, nil)
 
 		assert.NoError(t, err)
 		assert.Equal(t, domain.UserID(1), user.ID)

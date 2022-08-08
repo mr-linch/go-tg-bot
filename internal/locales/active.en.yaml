@@ -8,4 +8,5 @@ start_message: |
   <u>Here some info about you:</u>
   ├ <strong>ID:</strong> <code>{{.User.ID}}</code>
   ├ <strong>Telegram ID:</strong>  <code>{{.User.TelegramID}}</code>
+  ├ <strong>Deeplink:</strong> <code>{{.User.Deeplink.String}}</code>
   └ <strong>Language:</strong>  <code>{{.User.LanguageCode.String}}</code>

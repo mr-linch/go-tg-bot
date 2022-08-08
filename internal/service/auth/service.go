@@ -8,6 +8,7 @@ import (
 	"github.com/mr-linch/go-tg"
 	"github.com/mr-linch/go-tg-bot/internal/domain"
 	"github.com/mr-linch/go-tg-bot/internal/locales"
+	"github.com/mr-linch/go-tg-bot/internal/service"
 	"github.com/mr-linch/go-tg-bot/internal/store"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"github.com/rs/zerolog/log"
@@ -20,7 +21,11 @@ type Service struct {
 	Bundle *i18n.Bundle
 }
 
-func (srv *Service) AuthViaBot(ctx context.Context, tgUser *tg.User) (*domain.User, error) {
+func (srv *Service) AuthViaBot(ctx context.Context, tgUser *tg.User, opts *service.AuthSignUpOpts) (*domain.User, error) {
+	if opts == nil {
+		opts = &service.AuthSignUpOpts{}
+	}
+
 	user, err := srv.Store.User().Query().TelegramID(tgUser.ID).One(ctx)
 	if err == store.ErrUserNotFound {
 		user = &domain.User{
@@ -30,6 +35,7 @@ func (srv *Service) AuthViaBot(ctx context.Context, tgUser *tg.User) (*domain.Us
 			LanguageCode:          null.NewString(tgUser.LanguageCode, tgUser.LanguageCode != ""),
 			PreferredLanguageCode: null.NewString(tgUser.LanguageCode, tgUser.LanguageCode != ""),
 			TelegramUsername:      null.NewString(string(tgUser.Username), tgUser.Username != ""),
+			Deeplink:              null.NewString(opts.Deeplink, opts.Deeplink != ""),
 			CreatedAt:             srv.Clock.Now(),
 		}
 
