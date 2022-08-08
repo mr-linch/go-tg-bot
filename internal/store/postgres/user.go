@@ -53,6 +53,7 @@ func (s *userStore) toRow(user *domain.User) *dal.User {
 		TelegramUsername:      user.TelegramUsername,
 		LanguageCode:          user.LanguageCode,
 		PreferredLanguageCode: user.PreferredLanguageCode,
+		StoppedAt:             user.StoppedAt,
 		Deeplink:              user.Deeplink,
 		CreatedAt:             user.CreatedAt,
 		UpdatedAt:             user.UpdatedAt,
@@ -69,6 +70,7 @@ func (s *userStore) fromRow(row *dal.User) *domain.User {
 		LanguageCode:          row.LanguageCode,
 		PreferredLanguageCode: row.PreferredLanguageCode,
 		Deeplink:              row.Deeplink,
+		StoppedAt:             row.StoppedAt,
 		CreatedAt:             row.CreatedAt,
 		UpdatedAt:             row.UpdatedAt,
 	}

@@ -7,13 +7,13 @@ import (
 	"github.com/mr-linch/go-tg-bot/internal/domain"
 )
 
-//go:generate mockery --name Auth
+//go:generate mockery --name User
 
 type AuthSignUpOpts struct {
 	Deeplink string
 }
 
-type Auth interface {
+type User interface {
 	// AuthViaBot authorize user via bot.
 	// If user is not exist, create new user.
 	AuthViaBot(ctx context.Context, user *tg.User, opts *AuthSignUpOpts) (*domain.User, error)
@@ -26,4 +26,10 @@ type Auth interface {
 
 	// Change language of user.
 	SetUserLanguage(ctx context.Context, user *domain.User, lang string) (changed bool, err error)
+
+	// Stop mark user as stopped.
+	Stop(ctx context.Context, user *domain.User) error
+
+	// Restart mark user as active
+	Restart(ctx context.Context, user *domain.User) error
 }

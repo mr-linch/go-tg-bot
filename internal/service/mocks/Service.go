@@ -12,16 +12,16 @@ type Service struct {
 	mock.Mock
 }
 
-// Auth provides a mock function with given fields:
-func (_m *Service) Auth() service.Auth {
+// User provides a mock function with given fields:
+func (_m *Service) User() service.User {
 	ret := _m.Called()
 
-	var r0 service.Auth
-	if rf, ok := ret.Get(0).(func() service.Auth); ok {
+	var r0 service.User
+	if rf, ok := ret.Get(0).(func() service.User); ok {
 		r0 = rf()
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(service.Auth)
+			r0 = ret.Get(0).(service.User)
 		}
 	}
 

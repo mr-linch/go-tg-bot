@@ -38,6 +38,9 @@ type User struct {
 	// Contains start parameters of the bot.
 	Deeplink null.String
 
+	// Contains date of
+	StoppedAt null.Time
+
 	// Time when user was created.
 	CreatedAt time.Time
 

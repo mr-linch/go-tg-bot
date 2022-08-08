@@ -48,7 +48,7 @@ func (bot *Bot) registerLangHandlers() {
 var cbqLangSet = regexp.MustCompile(`lang_set:(?P<lang>[a-zA-Z-_]{2,})`)
 
 func (bot *Bot) onLangSetCallback(ctx context.Context, cbq *tgb.CallbackQueryUpdate) error {
-	user, err := bot.Service.Auth().AuthViaBot(ctx, &cbq.From, nil)
+	user, err := bot.Service.User().AuthViaBot(ctx, &cbq.From, nil)
 	if err != nil {
 		return errors.Wrap(err, "auth via bot")
 	}
@@ -60,7 +60,7 @@ func (bot *Bot) onLangSetCallback(ctx context.Context, cbq *tgb.CallbackQueryUpd
 		return errors.Errorf("lang not found in callback data: `%s`", cbq.Data)
 	}
 
-	changed, err := bot.Service.Auth().SetUserLanguage(ctx, user, lang)
+	changed, err := bot.Service.User().SetUserLanguage(ctx, user, lang)
 	if err != nil {
 		return errors.Wrap(err, "set user language")
 	}
@@ -100,7 +100,7 @@ func (bot *Bot) onLangSetCallback(ctx context.Context, cbq *tgb.CallbackQueryUpd
 }
 
 func (bot *Bot) onLangCmd(ctx context.Context, mu *tgb.MessageUpdate) error {
-	user, err := bot.Service.Auth().AuthViaBot(ctx, mu.Message.From, nil)
+	user, err := bot.Service.User().AuthViaBot(ctx, mu.Message.From, nil)
 	if err != nil {
 		return errors.Wrap(err, "auth via bot")
 	}

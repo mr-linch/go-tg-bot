@@ -45,6 +45,7 @@ func New(deps *Deps) (*Bot, error) {
 func (bot *Bot) registerHandlers() *Bot {
 	bot.registerLangHandlers()
 	bot.registerGeneralHandlers()
+	bot.registerMyChatMemberHandlers()
 
 	return bot
 }
