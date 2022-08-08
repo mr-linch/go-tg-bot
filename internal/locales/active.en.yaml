@@ -1,0 +1,11 @@
+lang_message: 'Select your language from the list below:'
+lang_set_cbq_changed: "\U0001F44C Language has been changed"
+lang_set_cbq_is_current: "\U0001F937‍♂️ That language is your current language, please
+  select another one"
+start_message: |
+  Hi, {{.User.Name}}!
+
+  <u>Here some info about you:</u>
+  ├ <strong>ID:</strong> <code>{{.User.ID}}</code>
+  ├ <strong>Telegram ID:</strong>  <code>{{.User.TelegramID}}</code>
+  └ <strong>Language:</strong>  <code>{{.User.LanguageCode.String}}</code>

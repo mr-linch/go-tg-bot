@@ -7,29 +7,34 @@ import (
 	"github.com/friendsofgo/errors"
 	"github.com/mr-linch/go-tg"
 	"github.com/mr-linch/go-tg-bot/internal/domain"
+	"github.com/mr-linch/go-tg-bot/internal/locales"
 	"github.com/mr-linch/go-tg-bot/internal/store"
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"github.com/rs/zerolog/log"
 	"github.com/volatiletech/null/v8"
 )
 
 type Service struct {
-	Clock clock.Clock
-	Store store.Store
+	Clock  clock.Clock
+	Store  store.Store
+	Bundle *i18n.Bundle
 }
 
 func (srv *Service) AuthViaBot(ctx context.Context, tgUser *tg.User) (*domain.User, error) {
 	user, err := srv.Store.User().Query().TelegramID(tgUser.ID).One(ctx)
 	if err == store.ErrUserNotFound {
 		user = &domain.User{
-			TelegramID:       tgUser.ID,
-			FirstName:        tgUser.FirstName,
-			LastName:         null.NewString(tgUser.LastName, tgUser.LastName != ""),
-			LanguageCode:     null.NewString(tgUser.LanguageCode, tgUser.LanguageCode != ""),
-			TelegramUsername: null.NewString(string(tgUser.Username), tgUser.Username != ""),
-			CreatedAt:        srv.Clock.Now(),
+			TelegramID:            tgUser.ID,
+			FirstName:             tgUser.FirstName,
+			LastName:              null.NewString(tgUser.LastName, tgUser.LastName != ""),
+			LanguageCode:          null.NewString(tgUser.LanguageCode, tgUser.LanguageCode != ""),
+			PreferredLanguageCode: null.NewString(tgUser.LanguageCode, tgUser.LanguageCode != ""),
+			TelegramUsername:      null.NewString(string(tgUser.Username), tgUser.Username != ""),
+			CreatedAt:             srv.Clock.Now(),
 		}
 
 		if err := srv.Store.User().Add(ctx, user); err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "add user to store")
 		}
 
 		return user, nil
@@ -42,6 +47,30 @@ func (srv *Service) AuthViaBot(ctx context.Context, tgUser *tg.User) (*domain.Us
 	}
 
 	return user, nil
+}
+
+func (srv *Service) SetUserLanguage(ctx context.Context, user *domain.User, lang string) (bool, error) {
+	log.Ctx(ctx).Info().
+		Str("old_lang", user.PreferredLanguageCode.String).
+		Str("new_lang", lang).
+		Msg("Auth.SetUserLanguage")
+
+	_, ok := locales.Meta[lang]
+	if !ok {
+		return false, errors.Errorf("invalid language: %s", lang)
+	}
+
+	if user.PreferredLanguageCode.String == lang {
+		return false, nil
+	}
+
+	user.PreferredLanguageCode.SetValid(lang)
+
+	if err := srv.Store.User().Update(ctx, user, store.UserFields.PreferredLanguageCode); err != nil {
+		return false, errors.Wrap(err, "update user")
+	}
+
+	return true, nil
 }
 
 func (srv *Service) updateUserIfNeed(ctx context.Context, user *domain.User, tgUser *tg.User) error {

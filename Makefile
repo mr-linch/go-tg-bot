@@ -18,7 +18,7 @@ run-services: ## run docker compose services
 .PHONY: tools
 tools: ## install golang tools
 	$(call print-target)
-	cd _tools && go install $(shell cd _tools && go list -f '{{ join .Imports " " }}' -tags=tools)
+	cd _tools && go get $(shell cd _tools && go list -f '{{ join .Imports " " }}' -tags=tools) && go install $(shell cd _tools && go list -f '{{ join .Imports " " }}' -tags=tools)
 
 .PHONY: clean
 clean: ## go clean build, test and modules caches
@@ -55,6 +55,24 @@ generate: ## go generate
 generate: tools
 	$(call print-target)
 	go generate ./...
+
+.PHONY: i18n-extract
+i18n-extract: ## extract i18n strings
+i18n-extract:
+	$(call print-target)
+	goi18n extract -format yaml -outdir internal/locales/
+
+.PHONY: i18n-merge
+i18n-merge: ## extract i18n strings
+i18n-merge:
+	$(call print-target)
+	cd internal/locales/ && goi18n merge -format yaml active.*.yaml
+
+.PHONY: i18n-merge-translated
+i18n-merge-translated: ## extract i18n strings
+i18n-merge-translated:
+	$(call print-target)
+	cd internal/locales/ && goi18n merge -format yaml active.*.yaml translate.*.yaml
 
 
 define print-target

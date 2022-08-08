@@ -12,6 +12,7 @@ import (
 	"github.com/mr-linch/go-tg"
 	"github.com/mr-linch/go-tg-bot/internal/config"
 	"github.com/mr-linch/go-tg-bot/internal/delivery/bot"
+	"github.com/mr-linch/go-tg-bot/internal/locales"
 	"github.com/mr-linch/go-tg-bot/internal/service/container"
 	"github.com/mr-linch/go-tg-bot/internal/store"
 	"github.com/mr-linch/go-tg-bot/internal/store/postgres"
@@ -43,14 +44,25 @@ func Run(ctx context.Context, cfg *config.Config, buildInfo BuildInfo) error {
 		return errors.Wrap(err, "init bot client")
 	}
 
+	bundle, err := locales.NewBundle()
+	if err != nil {
+		return errors.Wrap(err, "init locales")
+	}
+
 	srv := container.New(container.Deps{
-		Store: store,
-		Clock: clock.New(),
+		Store:  store,
+		Clock:  clock.New(),
+		Bundle: bundle,
 	})
 
-	bot := bot.New(&bot.Deps{
+	bot, err := bot.New(&bot.Deps{
 		Service: srv,
+		Bundle:  bundle,
+		Logger:  log.Ctx(ctx),
 	})
+	if err != nil {
+		return errors.Wrap(err, "init bot")
+	}
 
 	if cfg.Bot.Webhook.BaseURL != "" {
 		fullURL := strings.TrimRight(cfg.Bot.Webhook.BaseURL, "/") + cfg.Bot.Webhook.Path
@@ -64,6 +76,7 @@ func Run(ctx context.Context, cfg *config.Config, buildInfo BuildInfo) error {
 			bot,
 			botClient,
 			fullURL,
+			tgb.WithWebhookLogger(log.Ctx(ctx)),
 		).Run(
 			ctx,
 			cfg.HTTP.Listen,

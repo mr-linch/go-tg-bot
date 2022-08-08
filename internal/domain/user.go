@@ -26,12 +26,24 @@ type User struct {
 	// TelegramUsername (optional)
 	TelegramUsername null.String
 
-	// Language code (optional)
+	// Latest client language code (optional)
 	LanguageCode null.String
+
+	// Preferred language code.
+	// If language code is in the list of supported languages, then it will be used.
+	// Otherwise, the default language code will be used.
+	PreferredLanguageCode null.String
 
 	// Time when user was created.
 	CreatedAt time.Time
 
 	// UpdatedAt is the time when user was last updated (optional).
 	UpdatedAt null.Time
+}
+
+func (user *User) Name() string {
+	if user.LastName.Valid {
+		return user.FirstName + " " + user.LastName.String
+	}
+	return user.FirstName
 }
