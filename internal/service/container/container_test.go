@@ -13,5 +13,5 @@ func TestNew(t *testing.T) {
 	})
 
 	assert.NotNil(t, container)
-	assert.NotNil(t, container.Auth())
+	assert.NotNil(t, container.User())
 }

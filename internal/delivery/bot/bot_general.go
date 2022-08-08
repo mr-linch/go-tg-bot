@@ -21,7 +21,7 @@ func (bot *Bot) onStartCmd(ctx context.Context, msg *tgb.MessageUpdate) error {
 		opts.Deeplink = before
 	}
 
-	user, err := bot.Service.Auth().AuthViaBot(ctx, msg.Message.From, opts)
+	user, err := bot.Service.User().AuthViaBot(ctx, msg.Message.From, opts)
 	if err != nil {
 		return errors.Wrap(err, "auth via bot")
 	}

@@ -3,7 +3,7 @@ package container
 import (
 	"github.com/benbjohnson/clock"
 	"github.com/mr-linch/go-tg-bot/internal/service"
-	"github.com/mr-linch/go-tg-bot/internal/service/auth"
+	auth "github.com/mr-linch/go-tg-bot/internal/service/user"
 	"github.com/mr-linch/go-tg-bot/internal/store"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 )
@@ -15,14 +15,14 @@ type Deps struct {
 }
 
 type Container struct {
-	auth service.Auth
+	user service.User
 }
 
 var _ service.Service = (*Container)(nil)
 
 func New(deps Deps) *Container {
 	return &Container{
-		auth: &auth.Service{
+		user: &auth.Service{
 			Store:  deps.Store,
 			Clock:  deps.Clock,
 			Bundle: deps.Bundle,
@@ -30,6 +30,6 @@ func New(deps Deps) *Container {
 	}
 }
 
-func (c *Container) Auth() service.Auth {
-	return c.auth
+func (c *Container) User() service.User {
+	return c.user
 }

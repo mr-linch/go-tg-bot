@@ -32,6 +32,7 @@ type User struct {
 	LanguageCode          null.String `boil:"language_code" json:"language_code,omitempty" toml:"language_code" yaml:"language_code,omitempty"`
 	PreferredLanguageCode null.String `boil:"preferred_language_code" json:"preferred_language_code,omitempty" toml:"preferred_language_code" yaml:"preferred_language_code,omitempty"`
 	Deeplink              null.String `boil:"deeplink" json:"deeplink,omitempty" toml:"deeplink" yaml:"deeplink,omitempty"`
+	StoppedAt             null.Time   `boil:"stopped_at" json:"stopped_at,omitempty" toml:"stopped_at" yaml:"stopped_at,omitempty"`
 	CreatedAt             time.Time   `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
 	UpdatedAt             null.Time   `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
 
@@ -48,6 +49,7 @@ var UserColumns = struct {
 	LanguageCode          string
 	PreferredLanguageCode string
 	Deeplink              string
+	StoppedAt             string
 	CreatedAt             string
 	UpdatedAt             string
 }{
@@ -59,6 +61,7 @@ var UserColumns = struct {
 	LanguageCode:          "language_code",
 	PreferredLanguageCode: "preferred_language_code",
 	Deeplink:              "deeplink",
+	StoppedAt:             "stopped_at",
 	CreatedAt:             "created_at",
 	UpdatedAt:             "updated_at",
 }
@@ -72,6 +75,7 @@ var UserTableColumns = struct {
 	LanguageCode          string
 	PreferredLanguageCode string
 	Deeplink              string
+	StoppedAt             string
 	CreatedAt             string
 	UpdatedAt             string
 }{
@@ -83,6 +87,7 @@ var UserTableColumns = struct {
 	LanguageCode:          "user.language_code",
 	PreferredLanguageCode: "user.preferred_language_code",
 	Deeplink:              "user.deeplink",
+	StoppedAt:             "user.stopped_at",
 	CreatedAt:             "user.created_at",
 	UpdatedAt:             "user.updated_at",
 }
@@ -182,27 +187,6 @@ func (w whereHelperstring) NIN(slice []string) qm.QueryMod {
 	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
 }
 
-type whereHelpertime_Time struct{ field string }
-
-func (w whereHelpertime_Time) EQ(x time.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.EQ, x)
-}
-func (w whereHelpertime_Time) NEQ(x time.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.NEQ, x)
-}
-func (w whereHelpertime_Time) LT(x time.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.LT, x)
-}
-func (w whereHelpertime_Time) LTE(x time.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.LTE, x)
-}
-func (w whereHelpertime_Time) GT(x time.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.GT, x)
-}
-func (w whereHelpertime_Time) GTE(x time.Time) qm.QueryMod {
-	return qmhelper.Where(w.field, qmhelper.GTE, x)
-}
-
 type whereHelpernull_Time struct{ field string }
 
 func (w whereHelpernull_Time) EQ(x null.Time) qm.QueryMod {
@@ -227,6 +211,27 @@ func (w whereHelpernull_Time) GTE(x null.Time) qm.QueryMod {
 func (w whereHelpernull_Time) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
 func (w whereHelpernull_Time) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
 
+type whereHelpertime_Time struct{ field string }
+
+func (w whereHelpertime_Time) EQ(x time.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.EQ, x)
+}
+func (w whereHelpertime_Time) NEQ(x time.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.NEQ, x)
+}
+func (w whereHelpertime_Time) LT(x time.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LT, x)
+}
+func (w whereHelpertime_Time) LTE(x time.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LTE, x)
+}
+func (w whereHelpertime_Time) GT(x time.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GT, x)
+}
+func (w whereHelpertime_Time) GTE(x time.Time) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GTE, x)
+}
+
 var UserWhere = struct {
 	ID                    whereHelperint
 	TelegramID            whereHelperint64
@@ -236,6 +241,7 @@ var UserWhere = struct {
 	LanguageCode          whereHelpernull_String
 	PreferredLanguageCode whereHelpernull_String
 	Deeplink              whereHelpernull_String
+	StoppedAt             whereHelpernull_Time
 	CreatedAt             whereHelpertime_Time
 	UpdatedAt             whereHelpernull_Time
 }{
@@ -247,6 +253,7 @@ var UserWhere = struct {
 	LanguageCode:          whereHelpernull_String{field: "\"user\".\"language_code\""},
 	PreferredLanguageCode: whereHelpernull_String{field: "\"user\".\"preferred_language_code\""},
 	Deeplink:              whereHelpernull_String{field: "\"user\".\"deeplink\""},
+	StoppedAt:             whereHelpernull_Time{field: "\"user\".\"stopped_at\""},
 	CreatedAt:             whereHelpertime_Time{field: "\"user\".\"created_at\""},
 	UpdatedAt:             whereHelpernull_Time{field: "\"user\".\"updated_at\""},
 }
@@ -268,9 +275,9 @@ func (*userR) NewStruct() *userR {
 type userL struct{}
 
 var (
-	userAllColumns            = []string{"id", "telegram_id", "telegram_username", "first_name", "last_name", "language_code", "preferred_language_code", "deeplink", "created_at", "updated_at"}
+	userAllColumns            = []string{"id", "telegram_id", "telegram_username", "first_name", "last_name", "language_code", "preferred_language_code", "deeplink", "stopped_at", "created_at", "updated_at"}
 	userColumnsWithoutDefault = []string{"telegram_id", "first_name", "created_at"}
-	userColumnsWithDefault    = []string{"id", "telegram_username", "last_name", "language_code", "preferred_language_code", "deeplink", "updated_at"}
+	userColumnsWithDefault    = []string{"id", "telegram_username", "last_name", "language_code", "preferred_language_code", "deeplink", "stopped_at", "updated_at"}
 	userPrimaryKeyColumns     = []string{"id"}
 	userGeneratedColumns      = []string{}
 )

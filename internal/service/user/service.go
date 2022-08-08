@@ -1,4 +1,4 @@
-package auth
+package user
 
 import (
 	"context"
@@ -57,6 +57,7 @@ func (srv *Service) AuthViaBot(ctx context.Context, tgUser *tg.User, opts *servi
 
 func (srv *Service) SetUserLanguage(ctx context.Context, user *domain.User, lang string) (bool, error) {
 	log.Ctx(ctx).Info().
+		Int("user_id", int(user.ID)).
 		Str("old_lang", user.PreferredLanguageCode.String).
 		Str("new_lang", lang).
 		Msg("Auth.SetUserLanguage")
@@ -71,8 +72,12 @@ func (srv *Service) SetUserLanguage(ctx context.Context, user *domain.User, lang
 	}
 
 	user.PreferredLanguageCode.SetValid(lang)
+	user.UpdatedAt = null.TimeFrom(srv.Clock.Now())
 
-	if err := srv.Store.User().Update(ctx, user, store.UserFields.PreferredLanguageCode); err != nil {
+	if err := srv.Store.User().Update(ctx, user,
+		store.UserFields.PreferredLanguageCode,
+		store.UserFields.UpdatedAt,
+	); err != nil {
 		return false, errors.Wrap(err, "update user")
 	}
 
@@ -108,6 +113,42 @@ func (srv *Service) updateUserIfNeed(ctx context.Context, user *domain.User, tgU
 		if err := srv.Store.User().Update(ctx, user, fields...); err != nil {
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (srv *Service) Stop(ctx context.Context, user *domain.User) error {
+	log.Ctx(ctx).Info().
+		Int("user_id", int(user.ID)).
+		Msg("Auth.Stop")
+
+	user.StoppedAt = null.TimeFrom(srv.Clock.Now())
+	user.UpdatedAt = null.TimeFrom(srv.Clock.Now())
+
+	if err := srv.Store.User().Update(ctx, user,
+		store.UserFields.StoppedAt,
+		store.UserFields.UpdatedAt,
+	); err != nil {
+		return errors.Wrap(err, "update user")
+	}
+
+	return nil
+}
+
+func (srv *Service) Restart(ctx context.Context, user *domain.User) error {
+	log.Ctx(ctx).Info().
+		Int("user_id", int(user.ID)).
+		Msg("Auth.Restart")
+
+	user.StoppedAt = null.Time{}
+	user.UpdatedAt = null.TimeFrom(srv.Clock.Now())
+
+	if err := srv.Store.User().Update(ctx, user,
+		store.UserFields.StoppedAt,
+		store.UserFields.UpdatedAt,
+	); err != nil {
+		return errors.Wrap(err, "update user")
 	}
 
 	return nil

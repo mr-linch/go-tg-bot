@@ -10,13 +10,15 @@ func init() {
 
 			"first_name" text not null,
 			"last_name" text,
-			"language_code" text,
-			"preferred_language_code" text,
 
+			"language_code" text,
+
+			"preferred_language_code" text,
 			"deeplink" text,
 
-			"created_at" timestamp not null,
-			"updated_at" timestamp
+			"stopped_at" timestamptz,
+			"created_at" timestamptz not null,
+			"updated_at" timestamptz
 		);
 	`), query(`
 		drop table "user";
