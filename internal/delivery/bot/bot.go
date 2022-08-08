@@ -30,12 +30,12 @@ func New(deps *Deps) (*Bot, error) {
 		Router: tgb.NewRouter(),
 	}
 
-	bot.Use(func(next tgb.Handler) tgb.Handler {
+	bot.Use(tgb.MiddlewareFunc(func(next tgb.Handler) tgb.Handler {
 		return tgb.HandlerFunc(func(ctx context.Context, update *tgb.Update) error {
 			ctx = deps.Logger.WithContext(ctx)
 			return next.Handle(ctx, update)
 		})
-	})
+	}))
 
 	bot.registerHandlers()
 

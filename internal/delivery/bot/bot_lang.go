@@ -83,7 +83,7 @@ func (bot *Bot) onLangSetCallback(ctx context.Context, cbq *tgb.CallbackQueryUpd
 		})
 	}
 
-	if err := cbq.Update.Respond(ctx,
+	if err := cbq.Update.Reply(ctx,
 		cbq.AnswerText(cbqAnswerText, false),
 	); err != nil {
 		log.Ctx(ctx).Warn().
@@ -92,15 +92,11 @@ func (bot *Bot) onLangSetCallback(ctx context.Context, cbq *tgb.CallbackQueryUpd
 			Msg("error while responding to callback query")
 	}
 
-	if err := cbq.Update.Respond(ctx, tg.NewDeleteMessageCall(cbq.Message.Chat, cbq.Message.ID)); err != nil {
-		log.Ctx(ctx).Warn().
-			Err(err).
-			Int("msg_id", cbq.Message.ID).
-			Int("chat_id", int(cbq.Message.Chat.ID)).
-			Msg("error while deleting callback query message")
+	if changed {
+		return cbq.Update.Reply(ctx, bot.buildStartMsg(user).AsEditTextCall(cbq.Message.Chat, cbq.Message.ID))
 	}
 
-	return cbq.Update.Respond(ctx, bot.buildStartMsg(user, cbq.Message.Chat))
+	return nil
 }
 
 func (bot *Bot) onLangCmd(ctx context.Context, mu *tgb.MessageUpdate) error {

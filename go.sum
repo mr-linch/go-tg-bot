@@ -277,8 +277,8 @@ github.com/mitchellh/reflectwalk v1.0.0/go.mod h1:mSTlrgnPZtwu0c4WaC2kGObEpuNDbx
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
-github.com/mr-linch/go-tg v0.1.1 h1:e6WUN4C5qSVtdhkgDhP3KK4X7OTJWJFEpRDjS9qslbg=
-github.com/mr-linch/go-tg v0.1.1/go.mod h1:tbhKCy4DhtlSFziYbPWsPB5pNcAy8p3ZINGLyDHnKoc=
+github.com/mr-linch/go-tg v0.4.0 h1:rUKYLqHxCGnjzWnB81kS1zgkWQ/i7qpgptPY3DzV79M=
+github.com/mr-linch/go-tg v0.4.0/go.mod h1:tbhKCy4DhtlSFziYbPWsPB5pNcAy8p3ZINGLyDHnKoc=
 github.com/nicksnyder/go-i18n/v2 v2.2.0 h1:MNXbyPvd141JJqlU6gJKrczThxJy+kdCNivxZpBQFkw=
 github.com/nicksnyder/go-i18n/v2 v2.2.0/go.mod h1:4OtLfzqyAxsscyCb//3gfqSvBc81gImX91LrZzczN1o=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
