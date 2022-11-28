@@ -3,7 +3,8 @@ module github.com/mr-linch/go-tg-bot/_tools
 go 1.18
 
 require (
-	github.com/vektra/mockery/v2 v2.14.0
+	github.com/nicksnyder/go-i18n/v2 v2.2.0
+	github.com/vektra/mockery/v2 v2.15.0
 	github.com/volatiletech/sqlboiler/v4 v4.12.0
 )
 
@@ -27,7 +28,6 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
-	github.com/nicksnyder/go-i18n/v2 v2.2.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
