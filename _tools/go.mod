@@ -3,7 +3,8 @@ module github.com/mr-linch/go-tg-bot/_tools
 go 1.18
 
 require (
-	github.com/vektra/mockery/v2 v2.14.0
+	github.com/nicksnyder/go-i18n/v2 v2.2.0
+	github.com/vektra/mockery/v2 v2.16.0
 	github.com/volatiletech/sqlboiler/v4 v4.12.0
 )
 
@@ -12,6 +13,7 @@ require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
+	github.com/chigopher/pathlib v0.12.0 // indirect
 	github.com/friendsofgo/errors v0.9.2 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/google/uuid v1.3.0 // indirect
@@ -27,7 +29,6 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
-	github.com/nicksnyder/go-i18n/v2 v2.2.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
