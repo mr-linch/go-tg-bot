@@ -13,7 +13,7 @@ require (
 	github.com/mr-linch/go-tg v0.7.0
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/remind101/migrate v0.0.0-20170729031349-52c1edff7319
-	github.com/rs/zerolog v1.27.0
+	github.com/rs/zerolog v1.29.0
 	github.com/stretchr/testify v1.8.1
 	github.com/volatiletech/null/v8 v8.1.2
 	github.com/volatiletech/sqlboiler/v4 v4.12.0
