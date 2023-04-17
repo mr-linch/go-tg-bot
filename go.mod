@@ -9,7 +9,7 @@ require (
 	github.com/cristalhq/aconfig/aconfigyaml v0.17.1
 	github.com/friendsofgo/errors v0.9.2
 	github.com/getsentry/sentry-go v0.13.0
-	github.com/lib/pq v1.10.6
+	github.com/lib/pq v1.10.8
 	github.com/mr-linch/go-tg v0.7.0
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/remind101/migrate v0.0.0-20170729031349-52c1edff7319
