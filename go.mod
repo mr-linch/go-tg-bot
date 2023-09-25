@@ -3,13 +3,13 @@ module github.com/mr-linch/go-tg-bot
 go 1.18
 
 require (
-	github.com/DATA-DOG/go-txdb v0.1.5
+	github.com/DATA-DOG/go-txdb v0.1.7
 	github.com/benbjohnson/clock v1.3.0
 	github.com/cristalhq/aconfig v0.18.1
 	github.com/cristalhq/aconfig/aconfigyaml v0.17.1
 	github.com/friendsofgo/errors v0.9.2
 	github.com/getsentry/sentry-go v0.21.0
-	github.com/lib/pq v1.10.6
+	github.com/lib/pq v1.10.9
 	github.com/mr-linch/go-tg v0.7.0
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/remind101/migrate v0.0.0-20170729031349-52c1edff7319
