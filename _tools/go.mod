@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
-	github.com/vektra/mockery/v2 v2.27.1
+	github.com/vektra/mockery/v2 v2.35.2
 	github.com/volatiletech/sqlboiler/v4 v4.12.0
 )
 
@@ -18,7 +18,7 @@ require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/huandu/xstrings v1.3.1 // indirect
+	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
@@ -32,7 +32,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rs/zerolog v1.29.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/spf13/afero v1.9.3 // indirect
