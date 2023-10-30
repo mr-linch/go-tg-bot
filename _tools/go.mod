@@ -3,7 +3,7 @@ module github.com/mr-linch/go-tg-bot/_tools
 go 1.18
 
 require (
-	github.com/nicksnyder/go-i18n/v2 v2.2.0
+	github.com/nicksnyder/go-i18n/v2 v2.2.2
 	github.com/vektra/mockery/v2 v2.27.1
 	github.com/volatiletech/sqlboiler/v4 v4.12.0
 )
