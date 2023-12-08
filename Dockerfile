@@ -24,7 +24,7 @@ RUN CGO_ENABLED=0 go build \
 
 
 # run
-FROM alpine:3.16
+FROM alpine:3.19
 
 
 COPY --from=builder /bin/go-tg-bot /bin/go-tg-bot
